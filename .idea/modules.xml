@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/crawlers/crawlers.iml" filepath="$PROJECT_DIR$/crawlers/crawlers.iml" />
       <module fileurl="file://$PROJECT_DIR$/myLibrary1.iml" filepath="$PROJECT_DIR$/myLibrary1.iml" />
     </modules>
   </component>
