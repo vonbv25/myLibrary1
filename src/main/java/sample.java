@@ -88,8 +88,13 @@ public class sample {
 
         Configuration conf= new Configuration();
         FileSystem fs = FileSystem.get(conf);
+
+
         writeDataToFile(data,"testdata/data/vsm",fs,conf);
-        conf.a
+        fs.printStatistics();
+
+
+
 
 
 
