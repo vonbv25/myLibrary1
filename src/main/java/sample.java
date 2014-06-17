@@ -9,6 +9,7 @@ import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.util.Version;
 import org.apache.mahout.classifier.sgd.AdaptiveLogisticRegression;
 import org.apache.mahout.classifier.sgd.L1;
+import org.apache.mahout.classifier.sgd.ModelSerializer;
 import org.apache.mahout.math.*;
 import org.apache.mahout.vectorizer.encoders.AdaptiveWordValueEncoder;
 import org.apache.mahout.vectorizer.encoders.FeatureVectorEncoder;
@@ -119,6 +120,14 @@ public class sample {
 
         }
         lr.close();
+
+
+        String model_path = "testdata/sms_model.model";
+
+        ModelSerializer.writeBinary(model_path,lr.getBest().getPayload().getLearner());
+
+
+
 
 //        System.out.print(v.size());
 
