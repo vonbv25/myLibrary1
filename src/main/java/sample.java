@@ -12,6 +12,7 @@ import org.apache.mahout.vectorizer.encoders.AdaptiveWordValueEncoder;
 import org.apache.mahout.vectorizer.encoders.FeatureVectorEncoder;
 
 import java.io.*;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,15 +87,21 @@ public class sample {
             testData.mkdir();
         }
 
-        Configuration conf= new Configuration();
-        FileSystem fs = FileSystem.get(conf);
-
-
-        writeDataToFile(data,"testdata/data/vsm",fs,conf);
+        String uri = "hdfs://192.168.3.193:9000/";
+        Configuration conf = new Configuration();
+        FileSystem fs = FileSystem.get(URI.create(uri), conf);
+//        Configuration conf = new Configuration();
+//        FileSystem fs  = FileSystem.get(conf);
+        writeDataToFile(data,"testdata/data/vector.model",fs,conf);
         fs.printStatistics();
-
-
-
+//
+//        LongWritable key = new LongWritable();
+//        VectorWritable value = new VectorWritable();
+//        List<NamedVector> v = new ArrayList<NamedVector>();
+//        while (read.next(key,value)) {
+//            v.add ((NamedVector) value.get());
+//        }
+//        System.out.print(v.size());
 
 
 
