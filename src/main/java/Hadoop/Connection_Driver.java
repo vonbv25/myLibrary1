@@ -24,6 +24,7 @@ public class Connection_Driver {
         fs.printStatistics();
         System.out.println( fs.getHomeDirectory().toString());
         System.out.println(fs.getUri().getHost());
+        System.out.println(fs.getWorkingDirectory().toString());
     }
 
 
