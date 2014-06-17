@@ -7,6 +7,8 @@ import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.util.Version;
+import org.apache.mahout.classifier.sgd.AdaptiveLogisticRegression;
+import org.apache.mahout.classifier.sgd.L1;
 import org.apache.mahout.math.*;
 import org.apache.mahout.vectorizer.encoders.AdaptiveWordValueEncoder;
 import org.apache.mahout.vectorizer.encoders.FeatureVectorEncoder;
@@ -45,7 +47,7 @@ public class sample {
         TokenStream ts= analyzer.tokenStream("content",in);
         CharTermAttribute termAtt = ts.addAttribute(CharTermAttribute.class);
         ts.reset();
-        Vector v1= new RandomAccessSparseVector(100);
+        Vector v1= new RandomAccessSparseVector(1000);
         while(ts.incrementToken()){
             char[] termBuff= termAtt.buffer();
             int termLen=termAtt.length();
@@ -105,11 +107,20 @@ public class sample {
 //
         LongWritable key = new LongWritable();
         VectorWritable value = new VectorWritable();
-        List<NamedVector> v = new ArrayList<NamedVector>();
+//        List<NamedVector> v = new ArrayList<NamedVector>();
+        AdaptiveLogisticRegression lr = new AdaptiveLogisticRegression(
+
+    2,1000,new L1()
+        );
         while (read.next(key,value)) {
-            v.add ((NamedVector) value.get());
+//            v.add ((NamedVector) value.get());
+            NamedVector v = (NamedVector) value.get();
+            lr.train("spam".equals(v.getName()) ? 1 : 0, v);
+
         }
-        System.out.print(v.size());
+        lr.close();
+
+//        System.out.print(v.size());
 
 
 
