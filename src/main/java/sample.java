@@ -34,6 +34,7 @@ public class sample {
             vec.set(data);
             writer.append(new LongWritable(key++),vec);
         }
+        writer.close();
     }
 
     public static Vector encode_text(String document,String label) throws IOException{
@@ -87,21 +88,28 @@ public class sample {
             testData.mkdir();
         }
 
-        String uri = "hdfs://192.168.3.193:9000/";
-        Configuration conf = new Configuration();
-        FileSystem fs = FileSystem.get(URI.create(uri), conf);
+//        String uri = "hdfs://192.168.3.193:9000/";
 //        Configuration conf = new Configuration();
-//        FileSystem fs  = FileSystem.get(conf);
+//        FileSystem fs = FileSystem.get(URI.create(uri), conf);
+        Configuration conf = new Configuration();
+        FileSystem fs  = FileSystem.get(conf);
         writeDataToFile(data,"testdata/data/vector.model",fs,conf);
         fs.printStatistics();
+
+
+//        String path = new Path("testdata/data/vector.model").toString();
+//        System.out.println(path);
+        SequenceFile.Reader read =
+                new SequenceFile.Reader(fs,new Path("testdata/data/vector.model"),conf);
+
 //
-//        LongWritable key = new LongWritable();
-//        VectorWritable value = new VectorWritable();
-//        List<NamedVector> v = new ArrayList<NamedVector>();
-//        while (read.next(key,value)) {
-//            v.add ((NamedVector) value.get());
-//        }
-//        System.out.print(v.size());
+        LongWritable key = new LongWritable();
+        VectorWritable value = new VectorWritable();
+        List<NamedVector> v = new ArrayList<NamedVector>();
+        while (read.next(key,value)) {
+            v.add ((NamedVector) value.get());
+        }
+        System.out.print(v.size());
 
 
 
