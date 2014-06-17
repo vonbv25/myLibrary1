@@ -8,6 +8,7 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.util.Version;
 import org.apache.mahout.classifier.sgd.AdaptiveLogisticRegression;
+import org.apache.mahout.classifier.sgd.CrossFoldLearner;
 import org.apache.mahout.classifier.sgd.L1;
 import org.apache.mahout.classifier.sgd.ModelSerializer;
 import org.apache.mahout.math.*;
@@ -120,11 +121,48 @@ public class sample {
 
         }
         lr.close();
+        File modelData = new File("model");
 
+        if (!modelData.exists()) {
+            modelData.mkdir();
+        }
+        modelData = new File("model/data");
+        if (modelData.exists()) {
+            modelData.mkdir();
+        }
 
-        String model_path = "testdata/sms_model.model";
+        String model_path = modelData.getPath();
 
         ModelSerializer.writeBinary(model_path,lr.getBest().getPayload().getLearner());
+
+        InputStream in = new FileInputStream(model_path);
+        CrossFoldLearner best = ModelSerializer.readBinary(in, CrossFoldLearner.class);
+        in.close();
+
+
+        SequenceFile.Reader read1 =
+                new SequenceFile.Reader(fs,new Path("testdata/data/vector.model"),conf);
+
+//
+        LongWritable key1 = new LongWritable();
+        VectorWritable value1 = new VectorWritable();
+        double correct = 0;
+        int total = 0;
+        while (read1.next(key, value)) {
+            total++;
+            NamedVector v = (NamedVector) value.get();
+            int expected = "spam".equals(v.getName()) ? 1 : 0;
+
+            Vector p = new DenseVector(2);
+            best.classifyFull(p, v);
+            int cat = p.maxValueIndex();
+            if (cat == expected) {
+                correct++;
+            }
+        }
+        double cd = correct;
+        double td = total;
+        System.out.println((cd / td) *100 );
 
 
 
