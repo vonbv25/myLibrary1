@@ -2,6 +2,7 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.*;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.SequenceFile;
+import org.apache.hadoop.security.UserGroupInformation;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -92,6 +93,8 @@ public class sample {
             testData.mkdir();
         }
 
+
+//
 //        String uri = "hdfs://192.168.3.193:9000/";
 //        Configuration conf = new Configuration();
 //        FileSystem fs = FileSystem.get(URI.create(uri), conf);
@@ -162,7 +165,7 @@ public class sample {
         }
         double cd = correct;
         double td = total;
-        System.out.println((cd / td) *100 );
+        System.out.println( ( cd / td ) *100 );
 
 
 

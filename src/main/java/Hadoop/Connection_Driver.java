@@ -20,7 +20,7 @@ import java.security.PrivilegedAction;
  */
 public class Connection_Driver {
 
-    public static void Connection() throws IOException {
+    public static void connection() throws IOException {
         String uri = "hdfs://192.168.3.193:9000/";
         Configuration hadoop_conf = new Configuration();
         FileSystem fs = FileSystem.get(URI.create(uri), hadoop_conf);
@@ -32,7 +32,8 @@ public class Connection_Driver {
 
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException{
+        connection();
 
     }
 
