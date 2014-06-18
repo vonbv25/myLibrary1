@@ -23,18 +23,15 @@ public class Sample2 {
 
                 public Void run(){
                     try {
-
                         String uri = "hdfs://192.168.3.193:9000/";
                         Configuration hadoop_conf = new Configuration();
                         FileSystem fs = FileSystem.get(URI.create(uri), hadoop_conf);
                         fs.printStatistics();
+                        fs.mkdirs(new Path("testdata/data"));
                         System.out.println(fs.getWorkingDirectory());
-
-//                        fs.createNewFile(new Path("/testdata/data"));
 //
 //                        FileStatus[] status = fs.listStatus(new Path("/testdata/data"));
-//                        for(int i=0;i<status.length;i++){
-//                            System.out.println(status[i].getPath());
+//                        for(int i=0;i<status.length;i++){//                            System.out.println(status[i].getPath());
 //                        }
 
                     }
