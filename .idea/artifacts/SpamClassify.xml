@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="SpamClassify">
+    <output-path>$PROJECT_DIR$/out/artifacts/SpamClassify</output-path>
+    <root id="archive" name="SpamClassify.jar">
+      <element id="module-output" name="myLibrary1" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="archive" name="archive.jar" />
+    </root>
+  </artifact>
+</component>

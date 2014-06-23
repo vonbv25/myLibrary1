@@ -27,11 +27,12 @@ public class Sample2 {
                         Configuration hadoop_conf = new Configuration();
                         FileSystem fs = FileSystem.get(URI.create(uri), hadoop_conf);
                         fs.printStatistics();
-                        fs.mkdirs(new Path("testdata/data"));
+                        fs.mkdirs(new Path("testdata/data/"));
                         System.out.println(fs.getWorkingDirectory());
-//
-//                        FileStatus[] status = fs.listStatus(new Path("/testdata/data"));
-//                        for(int i=0;i<status.length;i++){//                            System.out.println(status[i].getPath());
+
+//                        FileStatus[] status = fs.listStatus(new Path("testdata/data"));
+//                        for(int i=0;i<status.length;i++){//
+//                         System.out.println(status[i].getPath());
 //                        }
 
                     }
